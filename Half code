@@ -1,0 +1,38 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class FakeReviewIdentificationApp {
+
+    public static void main(String[] args) {
+        List<String> reviews = new ArrayList<>();
+        reviews.add("This product is amazing and works like a charm!");
+        reviews.add("Worst product ever! It broke after a single use.");
+        reviews.add("I'm very satisfied with this purchase.");
+        reviews.add("Not worth the money. Poor quality.");
+
+        for (String review : reviews) {
+            String sentiment = identifySentiment(review);
+            System.out.println("Review: " + review);
+            System.out.println("Sentiment: " + sentiment);
+        }
+    }
+
+    private static String identifySentiment(String review) {
+        // Sample implementation: simple pattern matching for positive/negative sentiment
+        Pattern positivePattern = Pattern.compile("amazing|satisfied");
+        Pattern negativePattern = Pattern.compile("worst|poor");
+
+        Matcher positiveMatcher = positivePattern.matcher(review.toLowerCase());
+        Matcher negativeMatcher = negativePattern.matcher(review.toLowerCase());
+
+        if (positiveMatcher.find()) {
+            return "positive";
+        } else if (negativeMatcher.find()) {
+            return "negative";
+        } else {
+            return "neutral";
+        }
+    }
+}
